@@ -27,7 +27,7 @@
   - MDN의 정의 : scrollend 요소 스크롤이 완료되면 시작됩니다. 스크롤 위치에 더이상 보류 중인 업데이트가 없고 사용자가 동작을 완료하면 스크롤이 완료된 것으로 간주됩니다. 
   - onScroll event 와 Intersection Observer API 둘 다 사용해 본 결과, 직관적으로 바로 이해 가능한 것은 onScroll event로 무한스크롤을 구현하는 것이었습니다. Intersection Observer API는 onScroll event 보다 값싼 비용으로 사용할 수 있다고 하는데, 이 부분에 대해서는 체감이 되지 않았습니다. 다만, onScroll event는 빈번한 이벤트 발생으로 성능 최적화를 위하서 throttle과 같은 처리가 필요하므로 Observer API가 유지보수 측면에서 편리하다고 생각합니다.
   - scroll Event
-  <img width="100%" src="https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/25ff902b-06be-45c2-8e81-b6377d886057.png">
+  <img width="80%" src="https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/25ff902b-06be-45c2-8e81-b6377d886057.png">
 
   - 설명
     - clientHeight = 사용자가 현재 보는 높이
