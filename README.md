@@ -29,7 +29,7 @@
   - scroll Event
 
 <div style="text-align : center;" >
-  <img width="80%" src="https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/25ff902b-06be-45c2-8e81-b6377d886057.png">
+  <img width="100%" src="https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/25ff902b-06be-45c2-8e81-b6377d886057.png">
 </div>
 
   - 설명
