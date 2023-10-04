@@ -38,7 +38,7 @@ export default function App() {
       }
     }, 3000);
 
-    return () => clearInterval(timeout);
+    return () => setTimeout(timeout);
   });
 
   const handleScroll = () => {
