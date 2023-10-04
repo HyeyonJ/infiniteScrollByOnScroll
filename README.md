@@ -54,92 +54,80 @@
 
 ## 구현 코드 설명
 ```
-return (
-    <div style={{ textAlign: "center" }}>
-      <input type="text" value={query} onChange={handleSearch}></input>
-      {books.map((book, index) => {
-        if (books.length === index + 1) {
-          return (
-            <div ref={lastBookElementRef} key={book}>
-              {book}
-            </div>
-          );
-        } else {
-          return <div key={book}>{book}</div>;
-        }
-      })}
-      <div>{loading && "Loading..."}</div>
-      <div>{error && "Error"}</div>
+  return (
+    <div className="App">
+      <h1 style={{ textAlign: "center" }}>Coin Gallery</h1>
+
+      <div>
+        {coinsDataRef.current &&
+          coinsDataRef.current.map((coin, index) => {
+            return (
+              <div
+                key={index}
+                style={{
+                  margin: "20px",
+                  border: "1px solid black",
+                  height: "200px",
+                  textAlign: "center",
+                  borderRadius: "10px"
+                }}
+              >
+                <img
+                  src={coin.image}
+                  alt={coin.name}
+                  style={{
+                    margin: "10px",
+                    // backgroundColor: "red",
+                    height: "90px",
+                    textAlign: "center"
+                  }}
+                />
+                <br />
+                {coin.name}
+                <br />
+                {coin.current_price}
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
-}
 ```
-- input value 값에 변화가 있을 시 onChange 이벤트 핸들러는 handleSearch를 연결합니다.
-- books 배열을 매핑하여 동적으로 도서 목록을 생성합니다. 마지막 도서 요소 books.length === index + 1인 경우 lastBookElementRef를 참조하도록 설정합니다.
+- coin 배열을 매핑하여 동적으로 도서 목록들을 불러 옵니다.
 
 ```
-  function handleSearch(e) {
-    setQuery(e.target.value);
-    setPageNumber(1);
-  }
+  const handleScroll = () => {
+    if (noMoreData) {
+      return;
+    }
+    console.log("Height:", document.documentElement.scrollHeight);
+    console.log("Top:", document.documentElement.scrollTop);
+    console.log("Window:", window.innerHeight);
+
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+      document.documentElement.scrollHeight
+    ) {
+      setLoading(true);
+      // loadingRef.current = true;
+      // setPage((prev) => prev + 1);
+      pageRef.current = pageRef.current + 1;
+    }
+  };
 ```
-- 텍스트를 입력할 때 마다 해당 텍스트로 query 상태 변수를 업데이트 합니다. 사용자가 검색어를 임력할 때 마다 화면이 다시 렌더링되며, 입력된 검색어에 따라 검색 결과가 동적으로 업데이트 됩니다.
+- 스크롤 동작을 처리하는 함수입니다. 사용자가 페이지 하단에 도달했는지 확인하고, 그렇다면 페이지 번호를 증가시켜 true로 'pageRef'를 설정합니다.
 
 ```
-useEffect(() => {
-    setLoading(true);
-    setError(false);
-    const timeout = setTimeout(async () => {
-      try {
-        const res = await fetch(
-          `https://openlibrary.org/search.json?q=${query}&page=${pageNumber}`
-        );
-        if (res.ok) {
-          const data = await res.json();
-          console.log("여기", data);
-          setBooks((prevBooks) => [
-            ...new Set([...prevBooks, ...data.docs.map((b) => b.title)])
-          ]);
-          setHasMore(data.docs.length > 0);
-        }
-      } catch (error) {
-        console.error("데이터를 가져오는 중 오류 발생:", error);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }, 3000);
-    return () => clearInterval(timeout);
-  }, [query, pageNumber]);
-```
-- setTimteout은 데이터를 불러오기 전에 3초 동안 로딩 상태를 유지한 다음 데이터를 불러오는 비동기 작업을 합니다. 이로 인해, 컴포넌트 언마운트, query, pageNumber 변경되는 등의 경우에 setTimeout이 더 이상 실행되지 않도록 보장합니다.
-- hasMore는 현재 데이터를 불러온 페이지에서 가져온 도서 목록(data.docs)의 길이보다 0보다 큰지를 검사하는 조건식입니다.
-- 만약 현재 페이지에서 가져온 도서 목록의 길이가 0보다 크다면, 즉, 데이터가 존재한다면 조건식은 true로 바뀌어 실행됩니다.
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
 
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 ```
- const observer = useRef();
-  const lastBookElementRef = useCallback(
-    (node) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setPageNumber((prevPageNumber) => prevPageNumber + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading, hasMore]
-  );
-```
-- lastBookElementRef 변수는 IntersectionObserver를 사용하여 화면의 가장 하단에 도달하면 다음 페이지의 데이터를 불러오기 위한 콜백 함수입니다.
-- entries[0].isIntersecting는 첫 번째 요소가 화면에 진입했는지 여부를 나타내는 불리언 값입니다.
-- hasMore 상태가 true이면서 첫 번째 요소가 화면에 진입하면 다음 페이지를 요청하기 위해 setPageNumber 함수를 호출하여 페이지 번호를 업데이트합니다.
-- 콜백 함수가 관찰할 DOM 요소(node)가 존재하면해당 요소를 감시하기 위해 observer.current.observe(node)를 호출합니다.
+- useEffect구성 요소가 마운트될 때 창에 스크롤 이벤트 리스너가 추가됩니다. handleScroll사용자가 스크롤할 때 함수를 호출합니다 .
 
 ## Reference
-- https://www.youtube.com/watch?v=NZKUirTtxcg&t=691s
-- https://velog.io/@doondoony/IntersectionObserver
-- https://y0c.github.io/2019/06/30/react-infinite-scroll/
-- https://medium.com/suyeonme/react-how-to-implement-an-infinite-scroll-749003e9896a
+- https://www.youtube.com/watch?v=ahpbfQybX94&t=72s
+- https://www.youtube.com/watch?v=WIASshZpyCc&t=265s
+- https://www.youtube.com/watch?v=JWlOcDus_rs
 
