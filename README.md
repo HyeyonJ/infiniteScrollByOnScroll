@@ -29,7 +29,7 @@
   - scroll Event 사용법
   <img width="100%" src="https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/25ff902b-06be-45c2-8e81-b6377d886057.png">
 
-    - clientHeight = 사용자가 현재 보는 높이
+  - clientHeight = 사용자가 현재 보는 높이
     - scrollTop = 사용자가 보는 페이지와 원래 페이지의 최상단과의 차이
     - scrollHeight = 화면의 높이값
    
