@@ -27,17 +27,20 @@
   - MDN의 정의 : scrollend 요소 스크롤이 완료되면 시작됩니다. 스크롤 위치에 더이상 보류 중인 업데이트가 없고 사용자가 동작을 완료하면 스크롤이 완료된 것으로 간주됩니다. 
   - onScroll event 와 Intersection Observer API 둘 다 사용해 본 결과, 직관적으로 바로 이해 가능한 것은 onScroll event로 무한스크롤을 구현하는 것이었습니다. Intersection Observer API는 onScroll event 보다 값싼 비용으로 사용할 수 있다고 하는데, 이 부분에 대해서는 체감이 되지 않았습니다. 다만, onScroll event는 빈번한 이벤트 발생으로 성능 최적화를 위하서 throttle과 같은 처리가 필요하므로 Observer API가 유지보수 측면에서 편리하다고 생각합니다.
   - scroll Event 사용법
-![image](https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/25ff902b-06be-45c2-8e81-b6377d886057)
-|---|
-|clientHeight = 사용자가 지금 보는 높이scrollTop = 사용자가 보는 페이지와 원래 페이지의 최상단과의 차이scrollHeight = 화면의 높이값|
   <img width="100%" src="https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/25ff902b-06be-45c2-8e81-b6377d886057.png">
+    - clientHeight = 사용자가 현재 보는 높이
+    - scrollTop = 사용자가 보는 페이지와 원래 페이지의 최상단과의 차이
+    - scrollHeight = 화면의 높이값
+   
+    - 이를 활욯해서 스크롤이 바닥에 닿았을 시 실행될 함수식 scrollTop + clientHeigth >= scrollHeight 을 만들 수 있습니다.
+    - 이를 addEventListener를 이웅해서 스크롤을 감시하면 됩니다. 이는 [구현 코드 설명](#구현-코드-설명)에서 자세히 설명하겠습니다.
     
 
 ## 아키텍처
 <img width="100%" src="https://github.com/HyeyonJ/infiniteScrollByUseRef/assets/113879120/f84013e8-7687-44c7-8a8d-5b73ea04602c.png">
 
 ## 구현 화면
-|![image](https://github.com/HyeyonJ/infiniteScrollByUseRef/assets/113879120/2a9e92cb-0916-4f17-bcea-9a2ceecde483)|![image](https://github.com/HyeyonJ/infiniteScrollByUseRef/assets/113879120/f0cc2fbd-8c19-4f44-b2f9-8368d2e0e2fb)|![image](https://github.com/HyeyonJ/infiniteScrollByUseRef/assets/113879120/87004c16-5fe0-4a81-80b7-aae0ed7388f5)
+|![image](https://github.com/HyeyonJ/infiniteScrollByUseRef/assets/113879120/2a9e92cb-0916-4f17-bcea-9a2ceecde483)|![image](https://github.com/HyeyonJ/infiniteScrollByUseRef/assets/113879120/f0cc2fbd-8c19-4f44-b2f9-8368d2e0e2fb)|![image](https://github.com/HyeyonJ/infiniteScrollByUseRef/assets/113879120/87004c16-5fe0-4a81-80b7-aae0ed7388f5)|
 |---|---|---|
 |시작 화면|검색 데이터|스크롤 감지|
 
