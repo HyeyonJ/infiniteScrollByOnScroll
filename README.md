@@ -8,7 +8,7 @@
 ## 목차
   - [Infinite Scroll?](#Infinite-Scroll?)
   - [구현 방법 구분](#구현-방법-구분)
-  - [Intersection Observer API](#Intersection-Observer-API)
+  - [onScroll Event](#onScroll=Event)
   - [아키텍처](#아키텍처)
   - [구현 화면](#구현-화면)
   - [구현 코드 설명](#구현-코드-설명)
