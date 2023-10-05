@@ -1,4 +1,4 @@
-<img width="100%" src="https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/6426b8cc-437a-4d9a-94d9-80dcfbdc58af.gif">
+<img width="100%" src="https://github.com/HyeyonJ/infiniteScrollByScrollEvent/assets/113879120/7e6d2155-b8ee-42b7-9e41-61be047807ee.gif">
 
 <div align="center">
 <h2>무한 스크롤(Infinite Scroll) 구현</h2>
