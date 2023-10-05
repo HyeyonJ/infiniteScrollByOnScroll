@@ -39,7 +39,7 @@ export default function App() {
     }, 3000);
 
     return () => setTimeout(timeout);
-  });
+  },[]);
 
   const handleScroll = () => {
     if (noMoreData) {
