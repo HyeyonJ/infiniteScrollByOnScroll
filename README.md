@@ -42,7 +42,7 @@
     
 
 ## 아키텍처
-<img width="100%" src="https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/80e0e68f-a1ac-48d2-9411-46183c711c03.png">
+<img width="100%" src="https://github.com/HyeyonJ/infiniteScrollByScrollEvent/assets/113879120/9b4844d1-18db-49d0-a0fa-d40d36f03f3e.png">
 
 ## 구현 화면
 |![image](https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/757e6824-f20e-4c2c-aaf2-677374514b6a)|![image](https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/e9e11d88-6058-40b3-9b81-f3749b2240dd)|![image](https://github.com/HyeyonJ/infiniteScrollByOnScroll/assets/113879120/2e124872-fe94-4c3f-8a54-1f545447c445)|
